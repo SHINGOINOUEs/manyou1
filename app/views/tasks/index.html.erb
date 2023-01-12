@@ -11,7 +11,10 @@
     <td><%= task.title %></td>
     <td><%= task.content %></td>
 
-    <td><%= link_to '詳細を確認する', task_path(task.id) %></td>    
+    <td><%= link_to '詳細を確認する', task_path(task.id) %></td> 
+    <td><%= link_to "タスクを編集する", edit_task_path(task.id) %></td>
+
+    <td><%= link_to 'タスクを削除する', task_path(task.id), method: :delete %></td>
   </tr>
 <% end %>
 </table>
