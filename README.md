@@ -3,22 +3,37 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-Things you may want to cover:
+ER図構成
 
-* Ruby version
+Users
+ |---------------|-----------|
+ |Columns        |Description|
+ |---------------|-----------|
+ |name           |string     |
+ |---------------|-----------|
+ |email          |string     |
+ |---------------|-----------|
+ |password_digest|string     |
+ |---------------|-----------|
 
-* System dependencies
+Tasks
+ |---------------|-----------|
+ |user_id        |brignt     |
+ |---------------|-----------|
+ |title          |string     |
+ |---------------|-----------|
+ |content        |text       |
+ |---------------|-----------|
 
-* Configuration
+Labels-Tasks
+ |---------------|-----------|
+ |task_id        |brignt     |
+ |---------------|-----------|
+ |user_id        |brignt     |
+ |---------------|-----------|
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Labels 
+ |---------------|-----------|
+ |name           |string     |
+ |---------------|-----------| 
+ 
