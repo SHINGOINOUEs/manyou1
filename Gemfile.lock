@@ -123,6 +123,8 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.10-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.13.10-x86_64-linux)
+      racc (~> 1.4)
     pg (1.4.5)
     public_suffix (5.0.1)
     puma (4.3.12)
@@ -242,6 +244,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  x86_64-linux
 
 DEPENDENCIES
   bootsnap (>= 1.4.2)
@@ -250,6 +253,9 @@ DEPENDENCIES
   factory_bot_rails
   jbuilder (~> 2.7)
   listen (~> 3.2)
+  net-imap
+  net-pop
+  net-smtp
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
   rails (= 6.0.3)
