@@ -6,11 +6,13 @@
   <tr>
     <th>タイトル</th>
     <th>内容</th>
+    <th>終了期限</th>    
   </tr>
 
 <% @tasks.each do |task| %>
     <td class="task_row"><%= task.title %></td>
     <td><%= task.content %></td>
+    <td><%= task.deadline %></td>
 
     <td><%= link_to '詳細を確認する', task_path(task.id) %></td> 
     <td><%= link_to "タスクを編集する", edit_task_path(task.id) %></td>
