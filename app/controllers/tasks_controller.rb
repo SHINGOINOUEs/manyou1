@@ -5,10 +5,9 @@ class TasksController < ApplicationController
     if params[:sort_expired]
       @tasks = Task.all.order('deadline DESC')
     else
-      @tasks = Task.all.order
+      @tasks = Task.all
     end
   end
-
 
   def new
     @task = Task.new
