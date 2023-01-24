@@ -13,11 +13,12 @@ RSpec.describe 'タスク管理機能', type: :system do
         # ここに「タスク名」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
         # ここに「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
         fill_in "task[content]", with: "テストによる検証"
+        fill_in "task[deadline]", with: "002023-12-01"        
         # 3. 「登録する」というvalue（表記文字）のあるボタンをクリックする
         # ここに「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理を書く
         # 4. clickで登録されたはずの情報が、タスク詳細ページに表示されているかを確認する
         # （タスクが登録されたらタスク詳細画面に遷移されるという前提）
-        click_on "登録する"     
+        click_on "登録する"    
         # ここにタスク詳細ページに、テストコードで作成したデータがタスク詳細画面にhave_contentされているか（含まれているか）を確認（期待）するコードを書く
         expect(page).to have_content 'タスク登録テスト'               
       end
@@ -49,6 +50,20 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(task_list.first).to have_content 'タスクのテスト3'
       end
     end
+
+    context 'タスクを終了期限で並び替えるを押した場合' do
+      it 'タスクの順番が終了期限の降順で表示されること' do
+        # ここに実装する
+        task = FactoryBot.create(:task)
+        task = FactoryBot.create(:second_task)
+        task = FactoryBot.create(:third_task)
+        visit tasks_path
+        task_list = all('.task_row')
+
+        click_on "終了期限でソートする"
+        expect(task_list.first).to have_content 'タスクのテスト3'
+      end
+    end    
 
   end
 
