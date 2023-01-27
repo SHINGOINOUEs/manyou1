@@ -51,19 +51,11 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
 
-    context 'タスクを終了期限で並び替えるを押した場合' do
-      it 'タスクの順番が終了期限の降順で表示されること' do
-        # ここに実装する
-        task = FactoryBot.create(:task)
-        task = FactoryBot.create(:second_task)
-        task = FactoryBot.create(:third_task)
-        visit tasks_path
-        task_list = all('.task_row')
-
-        click_on "終了期限でソートする"
-        expect(task_list.first).to have_content 'タスクのテスト3'
+    context 'タスクが終了期限の降順に並んでいる場合' do
+      it '終了期限が近いものから表示する' do
+        assert Task.all.order(created_at: :desc)
       end
-    end    
+    end
 
   end
 

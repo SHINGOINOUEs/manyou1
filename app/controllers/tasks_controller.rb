@@ -2,10 +2,21 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = Task.all
     if params[:sort_expired]
-      @tasks = Task.all.order('deadline DESC')
+      @tasks = Task.all.order(deadline:"DESC")
     end
+
+    if params[:task].present?
+      if params[:task][:title].present? && params[:task][:status].present?
+        @tasks = @tasks.scope_title(params[:task][:title])
+        @tasks = @tasks.scope_status(params[:task][:status])
+      elsif params[:task][:title].present?
+        @tasks = @tasks.scope_title(params[:task][:title])
+      elsif params[:task][:status].present? 
+        @tasks = @tasks.scope_status(params[:task][:status])
+      end
+    end    
   end
 
   def new
@@ -48,7 +59,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :deadline)
+    params.require(:task).permit(:title, :content, :deadline,:status)
   end  
 
   def set_task

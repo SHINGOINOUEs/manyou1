@@ -1,18 +1,27 @@
 <h1>タスク一覧</h1>
 
 <p><%= notice %></p>
+
+<%= form_with url: tasks_path, method: :get, local: true do |form| %>
+  <%= form.text_field :search %>
+  <%= form.submit 'Search', name: nil %>
+<% end %>
+
+<%= select :status, :name, Task.statuses.keys.to_a, include_blank: true %>
   
 <table>
   <tr>
     <th>タイトル</th>
     <th>内容</th>
     <th>終了期限</th>    
+    <th>ステータス</th>    
   </tr>
 
 <% @tasks.each do |task| %>
     <td class="task_row"><%= task.title %></td>
     <td><%= task.content %></td>
     <td><%= task.deadline %></td>
+    <td><%= task.status %></td>
 
     <td><%= link_to '詳細を確認する', task_path(task.id) %></td> 
     <td><%= link_to "タスクを編集する", edit_task_path(task.id) %></td>
