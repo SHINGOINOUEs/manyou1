@@ -69,4 +69,55 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
   end
+
+  describe '検索機能' do
+    context 'タイトルであいまい検索をした場合' do
+      it "検索キーワードを含むタスクで絞り込まれる" do
+        # タスクの検索欄に検索ワードを入力する (例: task)
+        task1 = FactoryBot.create(:task, title: '万葉課題ステップ3')
+        task2 = FactoryBot.create(:task, title: '万葉課題ステップ2')
+        task3 = FactoryBot.create(:task, title: '賃貸物件課題')
+        visit tasks_path
+        fill_in 'task[title]', with: '万葉'
+        # 検索ボタンを押す
+        click_on "Search" 
+        expect(page).to have_content task1.title
+        expect(page).not_to have_content task3.title
+      end
+    end
+
+    context 'ステータス検索をした場合' do
+      it "ステータスに完全一致するタスクが絞り込まれる" do
+        # ここに実装する
+        task1 = FactoryBot.create(:task,status: 1)
+        task2 = FactoryBot.create(:task,status: 2)
+        task3 = FactoryBot.create(:task,status: 3)
+        visit tasks_path        
+        # プルダウンを選択する「select」について調べてみること
+        select 'closed', from: 'task_status'  
+        click_on "Search" 
+        expect(page).to have_content task1.status
+
+      end
+    end
+    context 'タイトルのあいまい検索とステータス検索をした場合' do
+      it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
+        # ここに実装する
+        task1 = FactoryBot.create(:task, title: '万葉課題ステップ3')
+        task2 = FactoryBot.create(:task, title: '万葉課題ステップ2')
+        task3 = FactoryBot.create(:task, title: '賃貸物件課題')
+        task4 = FactoryBot.create(:task, status: 1 )
+        task5 = FactoryBot.create(:task, status: 2 )
+        task6 = FactoryBot.create(:task, status: 3 )
+        task7 = FactoryBot.create(:task, title: '万葉課題ステップ3', status: 3  )
+        visit tasks_path
+        fill_in 'task[title]', with: '万葉'
+        select 'closed', from: 'task[status]'
+        click_on "Search" 
+        expect(page).to have_content task1.status        
+        expect(page).to have_content task5.status
+        expect(page).not_to have_content task3.title   
+      end
+    end
+  end  
 end 

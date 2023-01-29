@@ -7,6 +7,10 @@ class TasksController < ApplicationController
       @tasks = Task.all.order(deadline:"DESC")
     end
 
+    if params[:sort] == "created_at"
+      Task.all.order(created_at: :desc)
+    end  
+
     if params[:task].present?
       if params[:task][:title].present? && params[:task][:status].present?
         @tasks = @tasks.scope_title(params[:task][:title])
