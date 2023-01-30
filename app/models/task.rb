@@ -6,5 +6,6 @@ class Task < ApplicationRecord
   scope :default_sort, -> { order(created_at: :desc) }  
   scope :sort_deadline, -> { order(deadline: :desc) }
   scope :scope_title, -> (title) {where('title LIKE?',"%#{title}%")}
+	#scope :search_name, -> (name) { where('search_name LIKE ?', "%#{name}%") }  
   scope :scope_status, -> (status) { where(status: status) }
 end
