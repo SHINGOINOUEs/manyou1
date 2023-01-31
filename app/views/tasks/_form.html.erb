@@ -28,6 +28,12 @@
     <%= form.label :status %>
     <%= form.select :status,Task.statuses.keys, { include_blank: "選択してください"} %>
   </div>
+
+  <div class="priority" >
+    <%= form.label :"優先度:" %>
+    <%= form.select :priority, Task.priorities.keys,{ include_blank: "選択してください"} %>
+  </div>
+
   
   <%= form.submit %>
 
