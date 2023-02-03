@@ -61,3 +61,4 @@ gem 'net-imap'
 gem 'net-pop'
 
 gem 'bcrypt'
+gem 'kaminari'
