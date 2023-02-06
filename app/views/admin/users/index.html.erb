@@ -1,0 +1,31 @@
+<h1>ユーザー管理画面</h1>
+<p><%= notice %></p>
+<br><%= link_to 'ユーザーを作成する',new_admin_user_path, id: "users_admin_new_link" %><br>
+<table>
+  <thead>
+    <tr>
+      <th>ユーザーID:</th>
+      <th>ユーザー名:</th>
+      <th>タスク数:</th>
+      <th>権限:</th>      
+    <tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>        
+        <td><%= user.tasks.count %></td>
+        <% if user.admin? %>
+            <td>管理者</td>
+        <% else %>
+            <td>一般</td>
+        <% end %>                             
+        <td><%= link_to 'ユーザー情報', admin_user_path(user.id), id: "users_adimn_index" %></td>
+        <td><%= link_to '編集', edit_admin_user_path(user.id), id: "users_admin_index_edit" %></td>     
+        <td class="user_row"><%= link_to '削除', admin_user_path(user.id), id: "users_admin_index_delete", method: :delete, data:{ confirm: "本当に削除してよろしいですか？" } %></td>
+      <tr>
+      <% end %>
+  </tbody>
+<table>

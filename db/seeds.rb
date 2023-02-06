@@ -11,5 +11,9 @@
   email = Faker::Internet.email
   password = "password"
     
-    User.create(name: name, email: email, password: password, admin: true )
 end
+
+User.create!(name: "Administrator",
+  email: "admin1@example.jp",
+  password: "adminpassword",
+  admin: "true")

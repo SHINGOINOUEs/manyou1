@@ -1,0 +1,40 @@
+<h1>ユーザー編集</h1>
+<%if @users.errors.any?%>
+  <div id="error_explanation">
+  <h2><%= pluralize(@user.errors.count, "error") %> prohibited this <%= @user.name %> from being saved:</h2>
+  <ul>
+  <% @user.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+  </ul>
+</div>
+<% end %>
+
+<%= form_with(model: [:admin, @user], local: true) do |form| %>
+  <div class="name">
+    <%= form.label :名前 %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="email">
+    <%= form.label :メールアドレス　%>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="email">
+    <%= form.label :管理者権限　%>
+    <%= form.select:admin,[["一般ユーザー","false"],["管理者ユーザー","true"]] %>
+  </div>
+
+  <div class="password">
+    <%= form.label :パスワード %>
+    <%= form.text_field :password %>
+  </div>  
+
+  <div class="password_confirmation">
+    <%= form.label :パスワード確認 %>
+    <%= form.text_field :password_confirmation %>
+  </div>
+
+  <%= form.submit "登録"%>
+<% end %>

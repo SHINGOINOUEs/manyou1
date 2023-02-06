@@ -8,5 +8,18 @@ class User < ApplicationRecord
   has_secure_password  
   validates :password, length: { minimum: 6 }
 
-  has_many :tasks  
+  has_many :tasks, dependent: :destroy  
+  before_destroy :admin_not_delete
+  before_update :admin_not_update
+
+  private
+
+  def admin_not_delete
+    throw(:abort) if User.where(admin: true).count == 1 && self.admin == true
+  end
+
+  def admin_not_update
+    throw(:abort) if User.where(admin: true).count == 1 && will_save_change_to_attribute?(:admin, to: false)
+  end
+
 end

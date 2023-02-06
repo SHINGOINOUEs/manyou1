@@ -11,4 +11,6 @@ class Task < ApplicationRecord
   scope :scope_title, -> (title) {where('title LIKE?',"%#{title}%")}
   scope :scope_status, -> (status) { where(status: status) }
   scope :scope_priority, -> (priority) { where(priority: priority) }  
+
+  belongs_to :user  
 end
