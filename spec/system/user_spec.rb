@@ -4,7 +4,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
     context 'ユーザを新規登録した場合'do
       it '登録したユーザが表示される' do
         visit new_user_path
-        fill_in 'Namae', with:'Administrator'
+        fill_in 'Name', with:'Administrator'
         fill_in 'Email', with: 'admin@example.com'
         fill_in 'Password', with: 'adminpassword'
         fill_in 'Password confirmation', with: 'adminpassword'
@@ -26,7 +26,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
     before do
       FactoryBot.create(:user)
       visit new_user_path
-      fill_in 'Namae', with:'user1'
+      fill_in 'Name', with:'user1'
       fill_in 'Email', with: 'user1@example.com'
       fill_in 'Password', with: 'user1password'
       fill_in 'Password confirmation', with: 'user1password'
@@ -46,7 +46,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
     end
     context '他人の詳細ページをクリック' do
       it 'タスク一覧画面に遷移する' do
-        visit  user_path(1)
+        visit user_path(1)
         expect(page).to have_content 'タスク一覧'
       end
     end
@@ -75,7 +75,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
     context '一般ユーザー登録' do
       it '一般ユーザーは管理画面にアクセスできない' do
         visit new_user_path
-        fill_in 'Namae', with:'user1'
+        fill_in 'Name', with:'user1'
         fill_in 'Email', with: 'user1@example.com'
         fill_in 'Password', with: 'user1password'
         fill_in 'Password confirmation', with: 'user1password'
