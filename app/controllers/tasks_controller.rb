@@ -32,6 +32,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id    
     if @task.save
       redirect_to tasks_path, notice: "タスクを作成しました！"
     else
@@ -60,8 +61,6 @@ class TasksController < ApplicationController
       @task.destroy
       redirect_to tasks_path, notice:"タスクを削除しました！"      
     end
-
-  
 
   private
 
