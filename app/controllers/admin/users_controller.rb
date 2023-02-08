@@ -1,6 +1,7 @@
 class Admin::UsersController < ApplicationController
   before_action :set_admin_user, only:[:show, :edit, :destroy, :update]  
 
+
   def index  
     @users = User.all.includes(:tasks)
   end
@@ -19,6 +20,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])    
   end
 
   def edit

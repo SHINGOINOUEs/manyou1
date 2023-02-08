@@ -8,14 +8,14 @@
         <th>ステータス</th>
         <th>優先順位</th>
       </tr>
-      <% @users.tasks.each do|task| %>     
-        <tr>
-          <td><%= @task.title %></td>
-          <td><%= @task.content %></td>
-          <td><%= @task.expired_at %></td>
-          <td><%= @task.created_at %></td>
-          <td><%= @task.status %></td>
-          <td><%= @task.priority %></td>
+      <% @user.tasks.each do|task| %>     
+          <tr>
+          <td><%= task.title %></td>
+          <td><%= task.content %></td>
+          <td><%= task.deadline %></td>
+          <td><%= task.created_at %></td>
+          <td><%= task.status %></td>
+          <td><%= task.priority %></td>
         </tr>      
       <% end %>
   </table>
