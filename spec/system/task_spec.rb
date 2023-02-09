@@ -55,7 +55,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       it '終了期限が近いものから表示する' do 
         visit new_session_path        
         fill_in 'session[email]', with:'user1@example.com'
-        fill_in 'session[password]', with:'user1password'
+        fill_in 'session[password]', with:'user1password' 
         click_button "Log in"    
         visit tasks_path
         click_button "終了期限"
@@ -70,7 +70,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       it '優先順位が高いタスクが一番上に表示される' do 
         visit new_session_path        
         fill_in 'session[email]', with:'user1@example.com'
-        fill_in 'session[password]', with:'user1password'
+        fill_in 'session[password]', with: 'user1password'
         click_button "Log in"                   
         visit tasks_path
         click_button "優先度"  
@@ -89,8 +89,8 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '任意のタスク詳細画面に遷移した場合' do
       it '該当タスクの内容が表示される' do  
         visit new_session_path        
-        fill_in 'session[email]', with:'user1@example.com'
-        fill_in 'session[password]', with:'user1password'
+        fill_in 'session[email]', with:user.email
+        fill_in 'session[password]', with:user.password
         click_button "Log in"  
         task
         visit task_path(task)  
@@ -109,8 +109,8 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タイトルであいまい検索をした場合' do
       it "検索キーワードを含むタスクで絞り込まれる" do
         visit new_session_path
-        fill_in 'session[email]', with:'user1@example.com'
-        fill_in 'session[password]', with:'user1password'
+        fill_in 'session[email]', with:user.email
+        fill_in 'session[password]', with:user.password
         click_button "Log in"      
         visit tasks_path
         fill_in 'task[title]', with:'万葉'
@@ -119,12 +119,11 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).not_to have_content "写真共有アプリ"
       end
     end
-
     context 'ステータス検索をした場合' do
       it "ステータスに完全一致するタスクが絞り込まれる" do
         visit new_session_path        
-        fill_in 'session[email]', with:'user1@example.com'
-        fill_in 'session[password]', with:'user1password'
+        fill_in 'session[email]', with:user.email 
+        fill_in 'session[password]', with:user.password
         click_button "Log in"                
         visit tasks_path        
         select 'closed', from: 'task_status'  
@@ -135,15 +134,15 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タイトルのあいまい検索とステータス検索をした場合' do
       it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
         visit new_session_path        
-        fill_in 'session[email]', with:'user1@example.com'
-        fill_in 'session[password]', with:'user1password'
+        fill_in 'session[email]', with:user.email
+        fill_in 'session[password]', with:user.password
         click_button "Log in"     
         visit tasks_path
         fill_in 'task[title]', with: '万葉'
-        select 'closed', from: 'task[status]'
+        select 'in_progress', from: 'task[status]'
         click_on "Search" 
         expect(page).to have_content "万葉課題ステップ2"    
-        expect(page).to have_content "closed"
+        expect(page).to have_content "in_progress"
       end
     end
   end  
