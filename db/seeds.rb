@@ -8,10 +8,10 @@
 
 10.times do |n|
   User.create!(
-      name: "user#{n + 1}",
+      name: "username#{n + 1}",
       email: "user#{n + 1}@gmail.com",
-      password: "user#{n + 1}",
-      password_confirmation: "user#{n + 1}"
+      password: "userpasswordr#{n + 1}",
+      password_confirmation: "userpasswordr#{n + 1}"
   )
 end
 
@@ -20,4 +20,3 @@ User.create!(name: "Administrator",
   password: "adminpassword",
   admin: "true")
 
-end  
