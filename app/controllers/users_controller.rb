@@ -43,4 +43,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def require_owner
+    if current_user != @user && !current_user.admin?
+      flash[:alert] = "You can only manage your own account"
+      redirect_to tasks_path(@user.id)
+    end
+  end
+
 end

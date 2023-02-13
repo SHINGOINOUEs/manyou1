@@ -1,9 +1,10 @@
 class Admin::UsersController < ApplicationController
+  before_action :if_not_admin  
   before_action :set_admin_user, only:[:show, :edit, :destroy, :update]  
 
 
   def index  
-    @users = User.all.includes(:tasks)
+    @users = User.select(:id, :name, :email, :admin).order(created_at: :asc)    
   end
 
   def new
@@ -50,6 +51,10 @@ class Admin::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name,:email,:password,:password_confirmation,:admin)  
   end
+
+  def  if_not_admin
+    redirect_to  tasks_path(current_user.id)  unless  current_user.admin?
+  end  
 
   def set_admin_user
     @users = User.find(params[:id])
