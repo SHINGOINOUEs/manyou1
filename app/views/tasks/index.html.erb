@@ -18,6 +18,9 @@
   <span class = "form-group col-md-3">
     <%= form.select :status, Task.statuses.keys.to_a, include_blank: true %>
   </span>
+  </span>
+    <%= form.select( "label_ids", Label.pluck(:label_name, :id), { include_blank: '選択してください' }) %>
+  </span>
   <span>  
     <%= form.submit 'Search', class:"btn-secondary" %>
   </span>
@@ -39,7 +42,8 @@
     <th>内容</th>
     <th>終了期限</th>    
     <th>ステータス</th>  
-    <th>優先度</th>      
+    <th>優先度</th>   
+    <th>ラベル</th>       
   </tr>
 
 <% @tasks.each do |task| %>
@@ -49,8 +53,12 @@
     <td><%= task.content %></td>
     <td><%= task.deadline %></td>
     <td><%= task.status %></td>
-    <th><%= task.priority %></th>     
-
+    <th><%= task.priority %></th>  
+    <td>
+      <% task.labels.each do |label| %>
+      <%= label.label_name %>
+      <% end %>
+    </td>
     <td><%= link_to '詳細を確認する', task_path(task.id) %></td> 
     <td><%= link_to "タスクを編集する", edit_task_path(task.id) %></td>
     <td><%= link_to 'タスクを削除する', task_path(task.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td>

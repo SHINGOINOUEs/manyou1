@@ -21,6 +21,8 @@ class TasksController < ApplicationController
         @tasks = @tasks.scope_title(params[:task][:title])
       elsif params[:task][:status].present? 
         @tasks = @tasks.scope_status(params[:task][:status])   
+      elsif params[:task][:label_ids].present?
+        @tasks = @tasks.scope_label(params[:task][:label_ids])        
       end
     end 
     @tasks = @tasks.page(params[:page]).per(10)
@@ -42,10 +44,11 @@ class TasksController < ApplicationController
 
   def show
     @task= Task.find(params[:id])
+    labels = LabelTask.where(task_id: @task.id).pluck(:label_id)       
   end
 
   def edit
-    @task = Task.find(params[:id])    
+    @task = Task.find(params[:id])     
   end
 
   def update
@@ -65,7 +68,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :content, :deadline,:status,:priority,:user_id)
+    params.require(:task).permit(:title, :content, :deadline,:status,:priority,:user_id, { label_ids: [] })
   end  
 
   def set_task

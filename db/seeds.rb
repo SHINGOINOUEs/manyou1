@@ -20,3 +20,6 @@ User.create!(name: "Administrator",
   password: "adminpassword",
   admin: "true")
 
+10.times do |i|
+  Label.create!(label_name: "タスクラベル#{i+1}")
+end
