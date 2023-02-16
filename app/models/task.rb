@@ -9,4 +9,9 @@ class Task < ApplicationRecord
   scope :scope_title, -> (title) {where('title LIKE?',"%#{title}%")}
   scope :scope_status, -> (status) { where(status: status) }
   scope :scope_priority, -> (priority) { where(priority: priority) }  
+  scope :scope_label, -> (label_ids){ where(id: Labelling.where(label_id: label_ids).pluck(:task_id))}
+
+
+  has_many:labellings,dependent: :destroy
+  has_many:labels,through: :labellings, source: :label
 end
